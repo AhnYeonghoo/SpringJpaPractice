@@ -17,7 +17,10 @@ public class TodoListApplicationTests {
         todo1.setCompleted(Boolean.TRUE);
         this.todoRepository.save(todo1);
 
-
+        TodoEntity todo2 = new TodoEntity();
+        todo2.setContent("스프링 공부하기");
+        todo2.setCompleted(Boolean.FALSE);
+        this.todoRepository.save(todo2);
     }
 
 
