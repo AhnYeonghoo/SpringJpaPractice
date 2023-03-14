@@ -18,4 +18,5 @@ public class TodoEntity {
     @Column(nullable = false)
     private Boolean completed;
 
+
 }

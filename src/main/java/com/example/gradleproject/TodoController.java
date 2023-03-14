@@ -3,7 +3,7 @@ package com.example.gradleproject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -11,11 +11,11 @@ import java.util.List;
 @Controller
 public class TodoController {
 
-    private final TodoRepository todoRepository;
+    private final TodoService todoService;
 
     @RequestMapping("/todo")
     public String list(Model model) {
-        List<TodoEntity> todoEntityList = this.todoRepository.findAll();
+        List<TodoEntity> todoEntityList = this.todoService.getList();
         model.addAttribute("todoEntityList", todoEntityList);
         return "todolist";
     }
@@ -24,4 +24,17 @@ public class TodoController {
     public String root() {
         return "redirect:/todo";
     }
+
+    @PostMapping("/todo/create")
+    public String todoCreate(@RequestParam String content) {
+        this.todoService.create(content);
+        return "redirect:/todo";
+    }
+
+    @DeleteMapping("todo/delete/{id}")
+    public String todoDelete(@PathVariable Integer id) {
+        this.todoService.delete(id);
+        return "redirect:/todo";
+    }
+
 }

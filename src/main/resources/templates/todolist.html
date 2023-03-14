@@ -5,9 +5,11 @@
     <title>To Do List</title>
 </head>
 <body>
-<h1>
-    투두리스트
-</h1>
+<h1>투두리스트</h1>
+<form th:action="@{/todo/create}" method="post">
+    <input name="content" placeholder="오늘의 할 일을 적어보세요!">
+    <button>작성</button>
+</form>
 <table>
     <thead>
     <tr>
@@ -16,14 +18,34 @@
         <th>수행 여부</th>
     </tr>
     </thead>
+    <tbody>
+    <tr th:each="todoentity : ${todoEntityList}">
+        <td th:text="${todoentity.id}"></td>
+        <td th:text="${todoentity.content}"></td>
+        <td th:text="${todoentity.completed}"></td>
+        <td>
+            <button id="delete-btn" th:onclick="deleteItem(${todoentity.id})">삭제</button>
+        </td>
+    </tr>
+    </tbody>
 </table>
-<tbody>
-<tr th:each="todoentity : ${todoEntityList}">
-    <td th:text="${todoentity.id}"></td>
-    <td th:text="${todoentity.content}"></td>
-    <td th:text="${todoentity.completed}"></td>
-</tr>
-</tbody>
+
 
 </body>
+<script>
+    function deleteItem(id) {
+        console.log(id)
+        const url = "/todo/delete/" + id
+        $.ajax({
+            type: 'delete',
+            url: url,
+            contentType: 'application/json; charset=utf-8'
+        }).done(function () {
+            alert('할 일이 삭제되었습니다.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    }
+</script>
 </html>
