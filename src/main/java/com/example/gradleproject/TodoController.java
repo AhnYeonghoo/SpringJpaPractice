@@ -36,5 +36,5 @@ public class TodoController {
         this.todoService.delete(id);
         return "redirect:/todo";
     }
-
+    // 자바 스프링 고수가 되고 싶어요
 }
