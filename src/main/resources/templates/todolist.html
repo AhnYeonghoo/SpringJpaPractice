@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>To Do List</title>
@@ -7,7 +8,7 @@
 <body>
 <h1>투두리스트</h1>
 <form th:action="@{/todo/create}" method="post">
-    <input name="content" placeholder="오늘의 할 일을 적어보세요!">
+    <input name="content" placeholder="오늘의 할 일을 적어보세요!"/>
     <button>작성</button>
 </form>
 <table>
@@ -16,34 +17,33 @@
         <th>번호</th>
         <th>할 일</th>
         <th>수행 여부</th>
+        <th>삭제</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="todoentity : ${todoEntityList}">
+    <tr th:block th:each="todoentity : ${todoEntityList}" >
         <td th:text="${todoentity.id}"></td>
         <td th:text="${todoentity.content}"></td>
         <td th:text="${todoentity.completed}"></td>
-        <td>
-            <button id="delete-btn" th:onclick="deleteItem(${todoentity.id})">삭제</button>
-        </td>
+        <td><button id="delete-btn" th:onclick="deleteItem([[${todoentity.id}]])">삭제</button></td>
     </tr>
     </tbody>
 </table>
-
-
 </body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-    function deleteItem(id) {
+
+    function deleteItem(id){
         console.log(id)
-        const url = "/todo/delete/" + id
+        const url = "/todo/delete/"+id
         $.ajax({
-            type: 'delete',
-            url: url,
-            contentType: 'application/json; charset=utf-8'
-        }).done(function () {
+            type:'delete',
+            url:url,
+            contentType:'application/json; charset=utf-8'
+        }).done(function() {
             alert('할 일이 삭제되었습니다.');
             window.location.href = '/';
-        }).fail(function (error) {
+        }).fail(function (error){
             alert(JSON.stringify(error));
         });
     }

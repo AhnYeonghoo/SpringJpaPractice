@@ -31,7 +31,7 @@ public class TodoController {
         return "redirect:/todo";
     }
 
-    @DeleteMapping("todo/delete/{id}")
+    @DeleteMapping("/todo/delete/{id}")
     public String todoDelete(@PathVariable Integer id) {
         this.todoService.delete(id);
         return "redirect:/todo";

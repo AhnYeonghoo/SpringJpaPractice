@@ -24,9 +24,9 @@ public class TodoService {
     }
 
     @Transactional
-    public void delete(Integer id) {
-        TodoEntity todoEntity = todoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 아이템이 없습니다. id=" + id));
-        this.todoRepository.delete(todoEntity);
+    public void delete(Integer id){
+        TodoEntity toDoEntity = todoRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 아이템이 없습니다. id=" + id));
+        this.todoRepository.delete(toDoEntity);
     }
 }
