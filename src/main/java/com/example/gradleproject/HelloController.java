@@ -11,4 +11,10 @@ public class HelloController {
     public String hello() {
         return "Hello World";
     }
+
+    @RequestMapping("/home")
+    @ResponseBody
+    public String home() {
+        return "Home Page";
+    }
 }
