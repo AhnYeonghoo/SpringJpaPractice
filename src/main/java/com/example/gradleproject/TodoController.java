@@ -37,4 +37,10 @@ public class TodoController {
         return "redirect:/todo";
     }
     // 자바 스프링 고수가 되고 싶어요
+
+    @PutMapping("/todo/update/{id}")
+    public String todoUpdate(@RequestParam String content, @PathVariable Integer id) {
+        this.todoService.update(id, content);
+        return "redirect:/todo";
+    }
 }

@@ -29,6 +29,12 @@
     </tr>
     </tbody>
 </table>
+<div class="modal">
+    <div class="modal_content">
+        <input id="revise" placeholder="내용을 수정해주세요" />
+        <button type="submit" id="completeBtn" onclick="reviseItem()">완료.</button>
+    </div>
+</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
@@ -47,5 +53,30 @@
             alert(JSON.stringify(error));
         });
     }
+
+    function reviseItem(){
+
+        var id = value;
+        console.log(id)
+        var contentWritten = document.getElementById("revise").value;
+        var updateContent = contentWritten;
+        console.log(updateContent)
+        const url = "/todo/update/"+id;
+        $.ajax({
+            type:'put',
+            url:url,
+            contentType:'application/json; charset=utf-8',
+            data: updateContent,
+        }).done(function() {
+            alert('할 일이 수정되었습니다.');
+            window.location.href = '/';
+        }).fail(function (error){
+            alert(JSON.stringify(error));
+        });
+
+        $(".modal").fadeOut();
+    }
+
+
 </script>
 </html>
